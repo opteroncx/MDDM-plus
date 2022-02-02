@@ -1,6 +1,3 @@
-'''
-这里存放一些工具代码
-'''
 import datetime
 import os
 import shutil
@@ -44,7 +41,6 @@ def make_print_to_file(path='./'):
     print(fileName.center(60,'*'))
 
 def save_experiment():
-    # 保存当前实验内容
     root_path = './experiments'
     if not os.path.exists(root_path):
         os.mkdir(root_path)

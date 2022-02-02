@@ -31,8 +31,6 @@ class DatasetFromImage(data.Dataset):
         self.LR = os.path.join(pl)
         self.HR_list = os.listdir(self.HR)
         self.LR_list = os.listdir(self.LR)
-        # print(self.HR_list[:10])
-        # print(self.LR_list[:10])
 
     def __getitem__(self, index):
         im_h = Image.open(os.path.join(self.HR,self.HR_list[index]))

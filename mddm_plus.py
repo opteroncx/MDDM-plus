@@ -185,10 +185,6 @@ class Branch4(nn.Module):
         s4 =self.s_conv4(s3)
         convt_F14 = din(convt_F14,s4)
         convt_F14 = self.non_local(convt_F14)
-        # convt_F15 = self.convt_F15(convt_F14)
-        # s5 =self.s_conv5(s4)
-        # convt_F15 = din(convt_F15,s5)
-        #上采样
         combine = out + convt_F14
         up = self.u1(combine)
         up = self.u2(up)
@@ -199,18 +195,14 @@ class Branch4(nn.Module):
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        # 下采样
         self.down2_1 = Down2(3,64)
         self.down2_2 = Down2(64,64)
         self.down2_3 = Down2(64,64)
-        # self.down2_4 = Down2(64,64)
-        # Branches
-        # self.branch1 = Branch1()
+
         self.branch2 = Branch2()
         self.branch3 = Branch3()
         self.branch4 = Branch4()
-        # 缩放
-        # self.scale1 = ScaleLayer()
+
         self.scale2 = ScaleLayer()
         self.scale3 = ScaleLayer()
         self.scale4 = ScaleLayer()
@@ -222,10 +214,6 @@ class Net(nn.Module):
                     m.bias.data.zero_()
 
     def forward(self, x):
-        # out = self.relu(self.conv_input(x))
-        # print('1')
-        # b1 = self.branch1(x)
-        # b1 = self.scale1(b1)
         #---------
         # print('2')
         feat_down2 = self.down2_1(x)
@@ -243,7 +231,6 @@ class Net(nn.Module):
         b4 = self.scale4(b4)           
         #--------- 
         clean = b2 + b3 + b4
-        # clean = self.convt_shape1(combine)
         return [clean]
 
 class ScaleLayer(nn.Module):
